@@ -1,0 +1,17 @@
+GET http://localhost:8080/untracktion/excuses
+
+GET http://localhost:8080/untracktion/excuses?category=delayable
+
+GET http://localhost:8080/untracktion/excuses/all
+
+POST http://localhost:8080/untracktion/excuses/add
+Content-Type: application/json
+{
+  "quoteid": "AnID",
+  "quote": "A quote.",
+  "category": "delayable"
+}
+
+GET http://localhost:8080/untracktion/excuses/{quoteid}
+
+DELETE http://localhost:8080/untracktion/excuses/{quoteid}
