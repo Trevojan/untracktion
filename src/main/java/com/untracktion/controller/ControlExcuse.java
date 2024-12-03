@@ -21,40 +21,6 @@ public class ControlExcuse {
     private final DatabaseReference excusesRef = FirebaseDatabase.getInstance().getReference("excuses");
 
     @GetMapping("/excuses")
-    public CompletableFuture<ResponseEntity<List<ModelExcuse>>> getExcusesByCategory(@RequestParam String category) {
-        List<ModelExcuse> excuses = new ArrayList<>();
-
-        return CompletableFuture.supplyAsync(() -> {
-            final CompletableFuture<ResponseEntity<List<ModelExcuse>>> future = new CompletableFuture<>();
-
-            excusesRef.child("category").child(category).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot excuseSnapshot : dataSnapshot.getChildren()) {
-                        ModelExcuse excuse = excuseSnapshot.getValue(ModelExcuse.class);
-                        if (excuse != null) {
-                            excuses.add(excuse);
-                        }
-                    }
-
-                    if (excuses.isEmpty()) {
-                        future.complete(new ResponseEntity<>(HttpStatus.NO_CONTENT));
-                    } else {
-                        future.complete(new ResponseEntity<>(excuses, HttpStatus.OK));
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    future.complete(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
-                }
-            });
-
-            return future.join();
-        });
-    }
-
-    @GetMapping("/excuses/all")
     public CompletableFuture<ResponseEntity<List<ModelExcuse>>> getAllExcuses() {
         List<ModelExcuse> allExcuses = new ArrayList<>();
 

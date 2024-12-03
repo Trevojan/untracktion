@@ -13,7 +13,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class FirebaseInitializer {
-    public static void main(String[] args) {
+
+    public static void InitializeFirebase() {
         try {
             FileInputStream serviceAccount = new FileInputStream("src/main/java/com/untracktion/config/untrack-db-firebase-adminsdk-ig80l-5ef75d5ddf.json");
 
